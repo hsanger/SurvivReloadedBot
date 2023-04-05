@@ -30,7 +30,7 @@ const config = {
     github: `DamienVesper/SurvivReloadedBot`,
 
     version,
-    footer: `Created by DamienVesper#0001 | v${version}`
+    footer: `Surviv Reloaded | v${version}`
 };
 
 export default config;
