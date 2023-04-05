@@ -1,7 +1,7 @@
 import config from '../../config/config';
 
 import { EmbedBuilder } from '@discordjs/builders';
-import { ChannelType, type Message } from 'discord.js';
+import { ChannelType, type TextChannel, type Message } from 'discord.js';
 
 import findUser from '../utils/findUser';
 import { int } from '../utils/randomizer';
@@ -29,7 +29,7 @@ export default async (client: Client, message: Message): Promise<void> => {
                     .setDescription(`**${discord(message.author.tag)}** just leveled up to **Level ${dbUser.level}**!`)
                     .setFooter({ text: config.footer });
 
-                await message.channel.send({ embeds: [sEmbed] });
+                await (await client.channels.fetch(config.channels.botCommands) as TextChannel)?.send({ embeds: [sEmbed] });
             }
 
             await dbUser.save();
