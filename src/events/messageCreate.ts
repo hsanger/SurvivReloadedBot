@@ -14,25 +14,26 @@ export default async (client: Client, message: Message): Promise<void> => {
 
     if (message.channel.id !== config.channels.welcome) {
         const dbUser = await findUser(client, message.author);
-        if (new Date().valueOf() - dbUser.cooldowns.xp > config.cooldowns.messages.xp) {
+        if (!dbUser.banned && new Date().valueOf() - dbUser.cooldowns.xp > config.cooldowns.messages.xp) {
             dbUser.cooldowns.xp = new Date().valueOf();
             dbUser.xp += Math.floor(int(45, 100) / 4);
 
-            const xpNeeded = Math.floor((100 * Math.E * dbUser.level) / 2);
-            if (dbUser.xp > xpNeeded) {
-                dbUser.level++;
-                dbUser.xp -= xpNeeded;
+            await dbUser.save();
+        }
 
-                const sEmbed = new EmbedBuilder()
-                    .setColor(config.colors.blue)
-                    .setAuthor({ name: `Level Up`, iconURL: message.author.avatarURL() ?? message.author.defaultAvatarURL })
-                    .setDescription(`**${discord(message.author.tag)}** just leveled up to **Level ${dbUser.level}**!`)
-                    .setFooter({ text: config.footer });
+        const xpNeeded = Math.floor((100 * Math.E * dbUser.level) / 2);
+        if (dbUser.xp > xpNeeded) {
+            dbUser.level++;
+            dbUser.xp -= xpNeeded;
 
-                await (await client.channels.fetch(config.channels.botCommands) as TextChannel)?.send({ embeds: [sEmbed] });
-            }
+            const sEmbed = new EmbedBuilder()
+                .setColor(config.colors.blue)
+                .setAuthor({ name: `Level Up`, iconURL: message.author.avatarURL() ?? message.author.defaultAvatarURL })
+                .setDescription(`**${discord(message.author.tag)}** just leveled up to **Level ${dbUser.level}**!`)
+                .setFooter({ text: config.footer });
 
             await dbUser.save();
+            await (await client.channels.fetch(`602900064184172554`) as TextChannel)?.send({ embeds: [sEmbed] });
         }
     }
 };

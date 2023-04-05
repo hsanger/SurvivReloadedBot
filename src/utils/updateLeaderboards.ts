@@ -5,6 +5,7 @@ import type { Client } from '../typings/discord';
 import type { LBUser } from '../typings/models';
 
 import log from '../utils/log';
+import config from '../../config/config';
 
 const createLeaderboard = async (client: Client): Promise<LBUser[]> => {
     const lb: LBUser[] = [];
@@ -13,11 +14,14 @@ const createLeaderboard = async (client: Client): Promise<LBUser[]> => {
     const users = await User.find({ banned: false });
     if (users.length === 0) return lb;
 
-    for (const user of users) {
-        const discordUser = await client.users.fetch(user.discordID);
+    const guild = await client.guilds.fetch(config.guild);
+    const members = await guild.members.fetch();
 
+    for (const user of users) {
         // Add users to the generic leaderboard.
+        const discordUser = members.get(user.discordID)?.user;
         if (discordUser === undefined) continue;
+
         lb.push({
             discordID: discordUser.id,
             discordTag: discordUser.tag,
