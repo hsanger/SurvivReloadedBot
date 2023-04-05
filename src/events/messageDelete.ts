@@ -9,6 +9,7 @@ import { type Client } from '../typings/discord';
 
 export default async (client: Client, message: Message): Promise<void> => {
     if (message.author.bot || message.guild === null || message.channel?.type !== ChannelType.GuildText) return;
+    if (message.channel.id === config.channels.admin) return;
 
     const sEmbed = new EmbedBuilder()
         .setAuthor({ name: discord(message.author.tag), iconURL: message.author.avatarURL() ?? message.author.defaultAvatarURL })
