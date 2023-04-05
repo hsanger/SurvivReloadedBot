@@ -1,0 +1,10 @@
+[Unit]
+Description=Surviv Reloaded Discord bot.
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/SurvivReloadedBot
+ExecStart=/usr/bin/pnpm start
+
+[Install]
+WantedBy=multi-user.target
