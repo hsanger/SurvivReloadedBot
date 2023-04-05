@@ -16,6 +16,6 @@ export default async (client: Client, message: Message): Promise<void> => {
         .setTimestamp()
         .setFooter({ text: config.footer });
 
-    const logChannel = await client.channels.fetch(`602900064184172554`) as TextChannel;
+    const logChannel = await client.channels.fetch(config.logChannel) as TextChannel;
     await logChannel?.send({ embeds: [sEmbed] });
 };
