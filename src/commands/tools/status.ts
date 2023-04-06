@@ -38,7 +38,7 @@ const run = async (client: Client, interaction: ChatInputCommandInteraction): Pr
 
     const sEmbed = new EmbedBuilder()
         .setColor(config.colors.orange)
-        .setAuthor({ name: `Server Status`, iconURL: interaction.guild?.iconURL() ?? undefined, url: `https://resurviv.io` })
+        .setAuthor({ name: `Server Status`, iconURL: interaction.guild?.iconURL() ?? undefined })
         .setDescription(`Current status of all Surviv Reloaded servers.\n\n**NOTE:** If your game is frozen, it's most likely that the client froze or crashed. The game is still relatively unstable, you'll have to reload the game.`)
         .addFields([
             { name: `resurviv.io`, value: translateCode(naRes) },
