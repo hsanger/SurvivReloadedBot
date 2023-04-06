@@ -32,18 +32,18 @@ const translateCode = (code: number | undefined): string => {
 const run = async (client: Client, interaction: ChatInputCommandInteraction): Promise<void> => {
     await interaction.deferReply();
 
-    const res = await axios.get(`https://resurviv.io`).then(res => res.status).catch((err: AxiosError) => err.response?.status);
-    const sRes = await axios.get(`https://survivreloaded.com`).then(res => res.status).catch((err: AxiosError) => err.response?.status);
-    const xRes = await axios.get(`https://resurviv.io`).then(res => res.status).catch((err: AxiosError) => err.response?.status);
+    const naRes = await axios.get(`https://resurviv.io`).then(res => res.status).catch((err: AxiosError) => err.response?.status);
+    const euRes = await axios.get(`https://eu.resurviv.io`).then(res => res.status).catch((err: AxiosError) => err.response?.status);
+    const asRes = await axios.get(`https://as.resurviv.io`).then(res => res.status).catch((err: AxiosError) => err.response?.status);
 
     const sEmbed = new EmbedBuilder()
         .setColor(config.colors.orange)
         .setAuthor({ name: `Server Status`, iconURL: interaction.guild?.iconURL() ?? undefined, url: `https://resurviv.io` })
         .setDescription(`Current status of all Surviv Reloaded servers.\n\n**NOTE:** If your game is frozen, it's most likely that the client froze or crashed. The game is still relatively unstable, you'll have to reload the game.`)
         .addFields([
-            { name: `resurviv.io`, value: translateCode(res) },
-            { name: `survivreloaded.com`, value: translateCode(sRes) },
-            { name: `taskjourney.org:449`, value: translateCode(xRes) }
+            { name: `resurviv.io`, value: translateCode(naRes) },
+            { name: `eu.resurviv.io`, value: translateCode(euRes) },
+            { name: `as.resurviv.io`, value: translateCode(asRes) }
         ])
         .setTimestamp()
         .setFooter({ text: config.footer });
@@ -54,12 +54,12 @@ const run = async (client: Client, interaction: ChatInputCommandInteraction): Pr
             .setLabel(`resurviv.io`)
             .setStyle(ButtonStyle.Link),
         new ButtonBuilder()
-            .setURL(`https://survivreloaded.com`)
-            .setLabel(`survivreloaded.com`)
+            .setURL(`https://eu.resurviv.io`)
+            .setLabel(`eu.resurviv.io`)
             .setStyle(ButtonStyle.Link),
         new ButtonBuilder()
-            .setURL(`https://taskjourney.org:449`)
-            .setLabel(`taskjourney.org`)
+            .setURL(`https://as.resurviv.io`)
+            .setLabel(`as.resurviv.io`)
             .setStyle(ButtonStyle.Link)
     );
 
