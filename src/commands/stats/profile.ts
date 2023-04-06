@@ -22,7 +22,7 @@ const run = async (client: Client, interaction: ChatInputCommandInteraction): Pr
         .setColor(config.colors.blue)
         .setThumbnail(user.avatarURL() ?? user.defaultAvatarURL)
         .setAuthor({ name: `Profile | ${discord(user.tag)}`, iconURL: interaction.guild?.iconURL() as string })
-        .setDescription(`**Level:** ${dbUser.level}\n**XP:** ${num(Math.round(dbUser.xp))} / ${num(calculateMaxExp(dbUser.level))}`)
+        .setDescription(`**Rank:** #${dbUser.spot}\n\n**Level:** ${dbUser.level}\n**XP:** ${num(Math.round(dbUser.xp))} / ${num(calculateMaxExp(dbUser.level))}`)
         .setTimestamp()
         .setFooter({ text: config.footer });
 
