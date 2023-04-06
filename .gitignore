@@ -6,7 +6,3 @@ dist/
 
 # Environment variables
 .env
-
-# Flatfiles
-data.json
-userdata.txt

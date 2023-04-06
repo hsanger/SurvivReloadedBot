@@ -33,7 +33,7 @@ export default async (client: Client, message: Message): Promise<void> => {
                 .setFooter({ text: config.footer });
 
             await dbUser.save();
-            await (await client.channels.fetch(`602900064184172554`) as TextChannel)?.send({ embeds: [sEmbed] });
+            await (await client.channels.fetch(config.channels.levelUp) as TextChannel)?.send({ embeds: [sEmbed] });
         }
     }
 };
